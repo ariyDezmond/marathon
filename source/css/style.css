@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /*background-image: url("../img/profile(4).jpg"),url("../img/profile(5).jpg"),url("../img/profile(3).jpg"),url("../img/profile(1).jpg"),url("../img/img.jpg");
+    background-repeat: no-repeat,no-repeat,no-repeat,no-repeat,repeat-x;
+    background-attachment: fixed,fixed,fixed,fixed,fixed;
+    background-position: 0 0, 38% 0,75% 0,100% 0,0 100%;*/
+}
+.panel{
+    width: 80%;
+    margin-top: 7% !important;
+    height: 500px;
+    margin: 0 auto;
+}
+.panel-body{
+    overflow: auto;
+    height: 90%;
+}
+#page{
+
+}
+
+#page .head{
+    text-align: center;
+}
+.buttonLabel{
+    width: 100%;
+}
+
+table{
+    margin: auto;
+    border: 1px solid #ccc;
+}
+
+.tHead{
+    background-color: #3174AF !important;
+    
+}
+
+.tHead a{
+    color: #fff !important;
+    font-size: 1.5em;
+}
+ul,li{
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+tr{
+    border: 1px solid #ccc;
+}
+
+tr:nth-of-type(odd){
+    background-color: #ccc;
+}
+
+td{
+    text-align: center;
+    border: 1px solid #ccc;
+}
+#body{
+    text-align: center;
+}
+.img{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.panel-heading{
+    text-align: center;
+}
+
+.panel-footer{
+    text-shadow: grey 1px 1px 1px;
+    text-shadow: grey -1px -1px -1px;
+}
+
+.pagination{
+    display: table !important;
+    margin: auto !important;
+}
+

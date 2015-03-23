@@ -1,0 +1,41 @@
+<div class='group'>
+    <div>
+        <p>
+        <table id="list">
+            <tr class="tHead">
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/ID/direction/<?=$this->direction['ID']?>">ID</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/name/direction/<?=$this->direction['name']?>">Имя</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/surname/direction/<?=$this->direction['surname']?>">Фамилия</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/bDate/direction/<?=$this->direction['bDate']?>">Дата рождения</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/email/direction/<?=$this->direction['email']?>">Почтовый ящик</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/distance_id/direction/<?=$this->direction['distance']?>">Дистанция</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/country/direction/<?=$this->direction['country']?>">Страна</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/tel/direction/<?=$this->direction['tel']?>">Телефон</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/gender_id/direction/<?=$this->direction['gender']?>">Пол</a></td>
+                <td><a class="buttonLabel" href="<?=SITE?>/runner/list/page/<?=$this->pages['current']?>/sort/runner_id/direction/<?=$this->direction['runner']?>">Номер</a></td>
+            </tr>
+            <?foreach ($this->list as $user):?>
+                <tr>
+                    <?foreach($user as $key=>$value):?>
+                        <td class="<?if($key!='ID' AND $key!='runner_id' AND $key!='dValue'):?>editable<?endif;?> <?if($key=="cValue"):?> select-country<?elseif($key=="dValue"):?>select-distance<?elseif($key=="gValue"):?>select-gender<?endif;?>" name="<?=$key?>"><?=$value?></td>
+                    <?endforeach;?>
+                </tr>
+            <?endforeach;?>
+        </table>
+        <?$page=$this->pages;?>
+        <?if($page['dealPages']>STEP):?>
+        <ul class="pagination">
+            <li <?if($page['current']==1):?> class="disabled"<?endif;?>><a href="<?=SITE?>/runner/list/page/<?=$page['current']-1?>/sort/<?=$page['sort']?>/direction/<?=$page['direction']?>">&laquo;</a></li>
+            <?for($i=1;$i<=$page['dealPages'];$i++):?>
+                <?if($i==$page['current']):?>
+                    <li class="active"><a href="#"><?=$i?></a></li>
+                <?else:?>
+                    <li><a href="<?=SITE?>/runner/list/page/<?=$i?>/sort/<?=$page['sort']?>/direction/<?=$page['direction']?>"><?=$i?></a></li>
+                <?endif;?>
+            <?endfor;?>
+            <li <?if($page['current']==$page['dealPages']):?> class="disabled"<?endif;?>><a href="<?=SITE?>/runner/list/page/<?=$page['current']+1?>/sort/<?=$page['sort']?>/direction/<?=$page['direction']?>">&raquo;</a></li>
+        </ul>
+        <?endif;?>
+        </p>
+    </div>
+</div>
