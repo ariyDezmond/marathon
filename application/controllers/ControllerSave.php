@@ -17,6 +17,7 @@ class ControllerSave extends Controller{
     # This method is part of url after controller, e.g. http://mysite/controller/action
     static function ActionIndex($data)
     {
+        sleep(2);
         if(empty($_POST)) echo "No data recieved!";
         $model=self::$_factory->getModel("user");
         $result = $model->add($_POST);

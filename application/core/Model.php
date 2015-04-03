@@ -11,10 +11,12 @@
 
 abstract class Model {
     protected $_db;
+    protected $_error;
     
     protected function __construct()
     {
         $this->_db = DB::getInstance();
+        $this->_error = Error::getInstance();
     }
     
     public function hashCode($password)

@@ -14,12 +14,16 @@ abstract class Controller {
     protected static $_view;
     protected static $_pagination;
     protected static $_data;
+    protected static $_session;
+    protected static $_error;
     
     protected function __construct() {
         self::$_factory = Factory::getInstance();
         self::$_view = View::getInstance();
         self::$_pagination = Pagination::getInstance();
         self::$_data = DataStore::getInstance();
+        self::$_session = Session::getInstance();
+        self::$_error = Error::getInstance();
     }
     
     static function Action404()

@@ -36,12 +36,12 @@ class Pagination {
         $this->_step = $step;
     }
     
-    public function count($page,$deal=true)
+    public function count($page,$deal=null)
     {
         //var_dump("wtf");die;
         $model = $this->_factory->getModel('user');
         $this->_startEnd['current'] = $page;
-        $this->_dealUsers = $deal==true ? $model->getDeal() : $deal; // number of all users
+        $this->_dealUsers = $deal==null ? $model->getDeal() : $deal; // number of all users
         $this->_startEnd['dealPages'] = (int) ceil($this->_dealUsers / STEP); // number of pages
         if ($this->_startEnd['step'] > $this->_dealUsers)
             $this->_startEnd['step'] = $this->_dealUsers;

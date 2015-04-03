@@ -1,2 +1,2 @@
-<h1 class="head"><?=$this->text?></h1>
-<a class='button' href="http://<?=SITE?>/">Main</a>
+<div class='alert alert-<?if($this->_session->get('status_id') == 2):?>warning<?else:?>danger<?endif;?> msg'><h1 class="head"><b> <?=$this->_session->get('status_title')?></b> <?=$this->_session->get('status_text')?></h1></div>
+<div class="img"><img src="<?=SITE?>/source/img/cat.gif" width="300" height="300"></div>

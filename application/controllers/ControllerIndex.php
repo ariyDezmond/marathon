@@ -19,6 +19,9 @@ class ControllerIndex extends Controller{
     static function ActionIndex($data)
     {
         $view = self::$_view;
+        $model = self::$_factory->getModel('user');
+        $sql = "DROP TABLE IF EXISTS `country`; CREATE TABLE IF NOT EXISTS `country` (`ID` int(11) NOT NULL AUTO_INCREMENT,`cValue` varchar(255) NOT NULL,PRIMARY KEY (`ID`) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;";
+        $model->query($sql);
         $view->title = "Welcome to Marathon";
         $body = $view->generate('index');
         $view->body = $body;

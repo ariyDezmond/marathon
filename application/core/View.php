@@ -13,8 +13,12 @@ class View {
     private static $_instance;
     private $_body;
     private $_title;
+    private $_session;
     
-    private function __construct() {}
+    private function __construct() 
+    {
+        $this->_session = Session::getInstance();
+    }
     
     private function __clone() {}
     

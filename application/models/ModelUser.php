@@ -52,7 +52,10 @@ class ModelUser extends Model{
         if($this->_db->prepare($sql,'ssssssiiis',$user))
             return true;
         else
+        {
+            $this->_error->set("Ошибка с предпроверкой перед добавлением в базу!");
             return false;
+        }
     }
 
     public function edit($user)
@@ -109,7 +112,7 @@ class ModelUser extends Model{
 
     public function getSearch($search,$start,$end,$sort,$curDirection="ASC")
     {
-        //$search = $this->checkInput($search);
+        $search = $this->checkInput($search);
         if($curDirection=="down")
             $curDirection="DESC";
         else 
@@ -117,25 +120,26 @@ class ModelUser extends Model{
         $pattern = '/^[a-zA-Z_]+$/';
         $pattern1 = '/^[а-яА-Яa-zA-Z_]+$/';
         $search = str_replace("'","",$search);
-
-        /*var_dump($search);
-        var_dump($sort);*/
-        //if(!preg_match($pattern1,$search))
-        //    return false;
+        $start = $start==null ? 0 : $start;
+        $end = $end == null ? STEP : $end;
+        
         if(!preg_match($pattern,$sort))
             return false;
         // 1st realization of query - it's true
-
-        if($start==NULL)
-            $sql = "SELECT a.ID,a.name,a.surname,a.bDate,a.email,b.dValue,d.cValue,a.tel,c.gValue,a.runner_id FROM users AS a LEFT JOIN distance AS b ON a.distance=b.ID LEFT JOIN gender as c ON a.gender=c.ID LEFT JOIN country AS d ON a.country=d.ID WHERE tag LIKE '%{$search}%' ORDER BY {$sort} {$curDirection}";
-        else
-            $sql = "SELECT a.ID,a.name,a.surname,a.bDate,a.email,b.dValue,d.cValue,a.tel,c.gValue,a.runner_id FROM users AS a LEFT JOIN distance AS b ON a.distance=b.ID LEFT JOIN gender as c ON a.gender=c.ID LEFT JOIN country AS d ON a.country=d.ID WHERE tag LIKE '%{$search}%' ORDER BY {$sort} {$curDirection} LIMIT {$start},{$end}";
+        $sql = "SELECT a.ID,a.name,a.surname,a.bDate,a.email,b.dValue,d.cValue,a.tel,c.gValue,a.runner_id FROM users AS a LEFT JOIN distance AS b ON a.distance=b.ID LEFT JOIN gender as c ON a.gender=c.ID LEFT JOIN country AS d ON a.country=d.ID WHERE tag LIKE '%{$search}%' ORDER BY {$sort} {$curDirection} LIMIT {$start},{$end}";
+            
         /*var_dump($sql);*/
         // 2nd realization of query - it's true too
         //$sql = "SELECT a.ID,a.name,a.surname,a.bDate,a.email,b.dValue,a.country,a.tel,c.gValue FROM users AS a,distance AS b,gender AS c WHERE a.distance_id=b.ID AND a.gender_id=c.ID";
         //var_dump($sql);
         //return 
         return ($this->_db->getArray($sql,1));
+    }
+    public function getDealSearch($search)
+    {
+        $sql = "SELECT a.ID,a.name,a.surname,a.bDate,a.email,b.dValue,d.cValue,a.tel,c.gValue,a.runner_id FROM users AS a LEFT JOIN distance AS b ON a.distance=b.ID LEFT JOIN gender as c ON a.gender=c.ID LEFT JOIN country AS d ON a.country=d.ID WHERE tag LIKE '%{$search}%'";
+
+        return count($this->_db->getArray($sql,1));
     }
 
     public function getCountries()
@@ -212,7 +216,7 @@ class ModelUser extends Model{
                 else
                     $direction['email'] = 'up';
                 break;
-            case 'distance_id':
+            case 'distance':
                 if($curDirection=='up')
                     $direction['distance'] = 'down';
                 else
@@ -230,7 +234,7 @@ class ModelUser extends Model{
                 else
                     $direction['tel'] = 'up';
                 break;
-            case 'gender_id':
+            case 'gender':
                 if($curDirection=='up')
                     $direction['gender'] = 'down';
                 else
@@ -251,6 +255,11 @@ class ModelUser extends Model{
         $sql = "SELECT* FROM users";
         $deal = $this->_db->query($sql);
         return mysqli_num_rows($deal);
+    }
+
+    public function query($sql)
+    {
+        $this->_db->query($sql);
     }
 }
 

@@ -45,7 +45,7 @@ function save()
 	gender    = $('input:radio:checked').val();
 
     var data = $("form").serialize();
-    alert(data);
+    console.log(data);
 	$.ajax({
 		type    : "POST",
 		url     : site+"/save",
@@ -53,20 +53,34 @@ function save()
 		success : function(data){
             console.log(data);
 			if(data=="1")
-                $("#out").removeClass("alert alert-danger")
+                $("#out").empty()
+                         .removeClass("alert alert-danger")
                          .addClass("alert alert-success")
                          .text("Runner is successfully added!")
                          .show(1000)
                          .delay(2000)
                          .hide(1000);
             else
-                $("#out").removeClass("alert alert-success")
+                $("#out").empty()
+                         .removeClass("alert alert-success")
                          .addClass("alert alert-danger")
                          .text("Error!")
                          .show(1000)
                          .delay(2000)
                          .hide(1000);
-		}
+            $('input').each(function(){
+                $(this).val("");
+            });
+            $('#name').focus();
+		},
+        beforeSend: function()
+        {
+            $('#out').show(1000)
+                     .append("<div class='progress progress-striped active'>"+
+                                "<div class='progress-bar' role='progressbar' aria-valuenow='45' aria-valuemin='0' aria-valuemax='100' style='width: 100%'>"+
+                                "</div>"+
+                              "</div>");
+        }
 	});
 }
 
@@ -169,8 +183,26 @@ $(function(){
         getDistances();
         $('#gender').bind({
             keypress : function(e){
+                var status=true;
                 if(e.keyCode==13)
-                    save();
+                {
+                    $('input,select').each(function(){
+                        if(!$(this).val().length && $(this).attr('id')!='search')
+                        {
+                            $(this).focus()
+                                   .parent()
+                                   .append("<span class='input-group-addon'>Fill this field</span>")
+                                   .next()
+                                   .css("color","red")
+                                   .end()
+                                   .children(".input-group-addon")
+                                   .css("color","red");
+                            status=false;
+                            return false;
+                        }
+                    });
+                    if(status) save();
+                }
             }
         })
     }

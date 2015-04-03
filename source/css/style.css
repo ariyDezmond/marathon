@@ -10,22 +10,11 @@ body {
     background-position: 0 0, 38% 0,75% 0,100% 0,0 100%;*/
 }
 .panel{
-    width: 80%;
+    width: 90%;
     margin-top: 7% !important;
-    height: 500px;
     margin: 0 auto;
 }
-.panel-body{
-    overflow: auto;
-    height: 90%;
-}
-#page{
 
-}
-
-#page .head{
-    text-align: center;
-}
 .buttonLabel{
     width: 100%;
 }
@@ -56,27 +45,19 @@ tr{
 
 tr:nth-of-type(odd){
     background-color: #ccc;
+    
 }
 
+tr:nth-of-type(odd) td{
+    border: 1px solid #fff;
+}
 td{
     text-align: center;
     border: 1px solid #ccc;
 }
-#body{
-    text-align: center;
-}
-.img{
-    width: 50%;
-    margin: 0 auto;
-}
 
 .panel-heading{
     text-align: center;
-}
-
-.panel-footer{
-    text-shadow: grey 1px 1px 1px;
-    text-shadow: grey -1px -1px -1px;
 }
 
 .pagination{
@@ -84,3 +65,10 @@ td{
     margin: auto !important;
 }
 
+.msg{
+    text-align: center;
+}
+.img{
+    display: table !important;
+    margin: auto !important;
+}

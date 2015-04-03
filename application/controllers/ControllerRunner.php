@@ -55,24 +55,31 @@ class ControllerRunner extends Controller{
         $model = self::$_factory->getModel('user');
         $view = self::$_view;
         $paginator = self::$_pagination;
+        $session = self::$_session;
         
         // data for paginator
         $pages = $paginator->count($page);
         $pages['sort'] = $sort;
         $pages['direction'] = $direction;
+
+        $view->module = 'runner';
         
         // getting runners
         $users = $model->getUsers($pages['start'],$pages['end'],$sort,$direction);
         /*var_dump($users);*/
         if(count($users)==0)
         {
-            $view->text = "Пустой список участников!";
+            $session->set('status_id',2);
+            $session->set('status_title','Внимание!');
+            $session->set('status_text','Пустой список участноков!');
             $body = $view->generate('msg');
             $view->body = $body; 
         }
         elseif(!$users)
         {
-            $view->text = "Ошибка!!";
+            $session->set('status_id',3);
+            $session->set('status_title','Ошибка!');
+            $session->set('status_text',self::$_error->get());
             $body = $view->generate('msg');
             $view->body = $body; 
         }
